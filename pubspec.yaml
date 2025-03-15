@@ -24,3 +24,8 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+
+  fonts:
+    - family: Permanent
+      fonts:
+        - asset: fonts/PermanentMarker-Regular.ttf
