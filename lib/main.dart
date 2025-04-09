@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'pricing_screen.dart'; // Make sure to create this
+import 'congratulations_screen.dart'; // Make sure to create this
 
 void main() {
   runApp(MyApp());
@@ -8,12 +11,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TradingView Style App',
+      debugShowCheckedModeBanner: false,
+      title: 'Subscription Plans UI',
       theme: ThemeData(
-        primaryColor: Color(0xFF1E1E2F),
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color(0xFF1E1E1E),
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme.apply(bodyColor: Colors.white),
+        ),
       ),
-      home: ProfilePage(), // Change to ProfilePage() to view the profile
+      initialRoute: '/',
+      routes: {
+        '/': (context) => PricingScreen(),
+        '/congrats': (context) => CongratulationsScreen(),
+      },
     );
   }
 }
