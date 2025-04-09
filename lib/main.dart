@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hamrez_flutter_playground/profile_page.dart';
 import 'pricing_screen.dart'; // Make sure to create this
 import 'congratulations_screen.dart'; // Make sure to create this
 
@@ -21,8 +22,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => PricingScreen(),
-        '/congrats': (context) => CongratulationsScreen(),
+
+        '/': (context) => ProfileScreen()
+        // '/': (context) => PricingScreen(),
+        // '/congrats': (context) => CongratulationsScreen(),
       },
     );
   }
