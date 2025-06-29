@@ -12,9 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Profile Demo',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
+        brightness: Brightness.dark,
+        textTheme: GoogleFonts.
       ),
       home: MyHomePage(),
     );
@@ -30,7 +33,10 @@ class MyHomePage extends StatelessWidget {
         actions: [
           Icon(CupertinoIcons.chat_bubble),
           SizedBox(width: 4),
-          Icon(CupertinoIcons.ellipsis_vertical)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+            child: Icon(CupertinoIcons.ellipsis_vertical),
+          )
         ],
       ),
       body: Column(
@@ -44,22 +50,32 @@ class MyHomePage extends StatelessWidget {
                     child: Image.asset('assets/images/profile_image.png',
                         width: 60, height: 60)),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Hamidreza Pakpour'),
-                  Text('.Net & Flutter Developer'),
-                  Row(
-                    children: [
-                      Icon(CupertinoIcons.location),
-                      Text('Tehran, Iran'),
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Hamidreza Pakpour'),
+                    Text('.Net & Flutter Developer'),
+                    Row(
+                      children: [
+                        Icon(CupertinoIcons.location),
+                        SizedBox(width: 4),
+                        Text('Tehran, Iran'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              Icon(CupertinoIcons.heart)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Icon(CupertinoIcons.heart , color: Colors.pinkAccent,),
+              )
             ],
           ),
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text('A .NET and Flutter developer proficient in C# and Dart, dedicated to creating user-friendly and scalable applications. With experience in designing and implementing web and mobile software solutions, they provide innovative and optimized approaches to meet business needs. Additionally, they are passionate about continuous learning and staying updated with the latest technologies.'),
+      ) 
         ],
       ),
     );
