@@ -12,12 +12,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color surfaceColor = Color(0x0dffffff);
+    Color primaryColor = Colors.pink.shade400;
     // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Profile Demo',
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8),borderSide: BorderSide.none),
+          filled: true,
+          fillColor: surfaceColor
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(primaryColor))
+          ),
         primarySwatch: Colors.blueGrey,
+        primaryColor: primaryColor,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
         textTheme: GoogleFonts.latoTextTheme(TextTheme(bodyMedium: TextStyle(fontSize: 15),
@@ -62,114 +72,164 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.asset('assets/images/profile_image.png',
-                        width: 60, height: 60)),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Hamidreza Pakpour'),
-                    Text('.Net & Flutter Developer'),
-                    SizedBox(height: 6,),
-                    Row(
-                      children: [
-                        Icon(CupertinoIcons.location,color: Theme.of(context).textTheme.bodySmall!.color, size:16,),
-                        SizedBox(width: 4),
-                        Text('Tehran, Iran',style: Theme.of(context).textTheme.bodySmall,),
-                      ],
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image.asset('assets/images/profile_image.png',
+                          width: 60, height: 60)),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Icon(CupertinoIcons.heart , color: Colors.pinkAccent,),
-              )
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Hamidreza Pakpour'),
+                      Text('.Net & Flutter Developer'),
+                      SizedBox(height: 6,),
+                      Row(
+                        children: [
+                          Icon(CupertinoIcons.location,color: Theme.of(context).textTheme.bodySmall!.color, size:16,),
+                          SizedBox(width: 4),
+                          Text('Tehran, Iran',style: Theme.of(context).textTheme.bodySmall,),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(CupertinoIcons.heart , color: Colors.pinkAccent,),
+                )
+              ],
+            ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('A .NET and Flutter developer proficient in C# and Dart, dedicated to creating user-friendly and scalable applications. With experience in designing and implementing web and mobile software solutions, they provide innovative and optimized approaches to meet business needs. Additionally, they are passionate about continuous learning and staying updated with the latest technologies.',
+          style: Theme.of(context).textTheme.bodySmall),
+        ),
+        Divider(indent: 10,endIndent: 10,), 
+        Padding(
+          padding: const EdgeInsets.fromLTRB(32, 0, 32, 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Skills',style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold ),),
+              SizedBox(width: 4,),
+              Icon(CupertinoIcons.chevron_down,size: 12,),
             ],
           ),
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text('A .NET and Flutter developer proficient in C# and Dart, dedicated to creating user-friendly and scalable applications. With experience in designing and implementing web and mobile software solutions, they provide innovative and optimized approaches to meet business needs. Additionally, they are passionate about continuous learning and staying updated with the latest technologies.',
-        style: Theme.of(context).textTheme.bodySmall),
-      ),
-      Divider(indent: 10,endIndent: 10,), 
-      Padding(
-        padding: const EdgeInsets.fromLTRB(32, 0, 32, 12),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Skills',style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold ),),
-            SizedBox(width: 4,),
-            Icon(CupertinoIcons.chevron_down,size: 12,),
+        ),
+          SizedBox(height: 12,),
+          Center(
+            child: Wrap(direction: Axis.horizontal,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              Skill(imagePath:'assets/images/app_icon_01.png' ,
+              title: 'PhotpShop',
+              shadowColor: Colors.blue,
+              isActive: _skill==_SkillType.photoshop,
+              type: _SkillType.photoshop,
+              onTap: () { 
+                updateSelectedSkill(_SkillType.photoshop);
+               },
+              ),
+              Skill(imagePath:'assets/images/app_icon_02.png' ,
+              title: 'LightRoom',
+              shadowColor: Colors.blueAccent,
+              isActive: _skill==_SkillType.lightRoom, 
+              type: _SkillType.lightRoom, 
+              onTap: () { 
+                updateSelectedSkill(_SkillType.lightRoom);
+               },
+              ),
+              Skill(imagePath:'assets/images/app_icon_03.png' ,
+              title: 'AfterEffect',
+              shadowColor: Colors.deepPurple,
+              isActive: _skill==_SkillType.afterEffect, 
+              type: _SkillType.afterEffect, 
+              onTap: () { 
+                 updateSelectedSkill(_SkillType.afterEffect);
+               },
+              ),
+              Skill(imagePath:'assets/images/app_icon_04.png' ,
+              title: 'Illastrator',
+              shadowColor: Colors.orange,
+              isActive: _skill==_SkillType.illastrator, 
+              type: _SkillType.illastrator, 
+              onTap: () {
+                updateSelectedSkill(_SkillType.illastrator);
+        
+              },
+              ),
+              Skill(imagePath:'assets/images/app_icon_05.png' ,
+              title: 'AdobeXD',
+              shadowColor: Colors.pink,
+              isActive: _skill==_SkillType.xd, 
+              type: _SkillType.xd, 
+              onTap: () {
+                updateSelectedSkill(_SkillType.xd);
+        
+              },
+              ),
+            ],),
+          ),
+            Divider(indent: 10,endIndent: 10,), 
+            Padding(
+          padding: const EdgeInsets.fromLTRB(32, 0, 32, 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text('Personal Information',
+                  style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold ),),
+                  SizedBox(width: 4,),
+                  Icon(CupertinoIcons.chevron_down,size: 12,),
+                ],
+              ),
+              SizedBox(height: 12,),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      prefixIcon: Icon(CupertinoIcons.at)
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: Icon(CupertinoIcons.lock)
+                    ),
+                  ),
+                    SizedBox(height: 12,),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: (){}, 
+                    child: Text('Save'),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)
+                      )
+                    )),
+                    ),
+            ],
+          ),
+        ),
           ],
         ),
-      ),
-        SizedBox(height: 12,),
-        Center(
-          child: Wrap(direction: Axis.horizontal,
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            Skill(imagePath:'assets/images/app_icon_01.png' ,
-            title: 'PhotpShop',
-            shadowColor: Colors.blue,
-            isActive: _skill==_SkillType.photoshop,
-            type: _SkillType.photoshop,
-            onTap: () { 
-              updateSelectedSkill(_SkillType.photoshop);
-             },
-            ),
-            Skill(imagePath:'assets/images/app_icon_02.png' ,
-            title: 'LightRoom',
-            shadowColor: Colors.blueAccent,
-            isActive: _skill==_SkillType.lightRoom, 
-            type: _SkillType.lightRoom, 
-            onTap: () { 
-              updateSelectedSkill(_SkillType.lightRoom);
-             },
-            ),
-            Skill(imagePath:'assets/images/app_icon_03.png' ,
-            title: 'AfterEffect',
-            shadowColor: Colors.deepPurple,
-            isActive: _skill==_SkillType.afterEffect, 
-            type: _SkillType.afterEffect, 
-            onTap: () { 
-               updateSelectedSkill(_SkillType.afterEffect);
-             },
-            ),
-            Skill(imagePath:'assets/images/app_icon_04.png' ,
-            title: 'Illastrator',
-            shadowColor: Colors.orange,
-            isActive: _skill==_SkillType.illastrator, 
-            type: _SkillType.illastrator, 
-            onTap: () {
-              updateSelectedSkill(_SkillType.illastrator);
-
-            },
-            ),
-            Skill(imagePath:'assets/images/app_icon_05.png' ,
-            title: 'AdobeXD',
-            shadowColor: Colors.pink,
-            isActive: _skill==_SkillType.xd, 
-            type: _SkillType.xd, 
-            onTap: () {
-              updateSelectedSkill(_SkillType.xd);
-
-            },
-            ),
-          ],),
-        )
-        ],
       ),
     );
   }
