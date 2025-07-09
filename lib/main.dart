@@ -31,7 +31,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+enum _SkillType{
+photoshop,xd,illastrator,afterEffect,lightRoom;
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  _SkillType _skill = _SkillType.photoshop;
+
+  void updateSelectedSkill(_SkillType skillType){
+    setState(() {
+        this._skill =skillType;
+    });
+  }
   @override
   Widget build(BuildContext context) { 
     return Scaffold(
@@ -94,78 +110,110 @@ class MyHomePage extends StatelessWidget {
           children: [
             Text('Skills',style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold ),),
             SizedBox(width: 4,),
-            Icon(CupertinoIcons.chevron_down,size: 12,)
+            Icon(CupertinoIcons.chevron_down,size: 12,),
           ],
         ),
       ),
+        SizedBox(height: 12,),
         Center(
           child: Wrap(direction: Axis.horizontal,
           spacing: 8,
           runSpacing: 8,
           children: [
-            Container(
-              width: 120,
-              height: 100,
-              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/app_icon_01.png',width: 40,height: 40,),
-                  Text('Photoshop')
-                ],
-              ), 
+            Skill(imagePath:'assets/images/app_icon_01.png' ,
+            title: 'PhotpShop',
+            shadowColor: Colors.blue,
+            isActive: _skill==_SkillType.photoshop,
+            type: _SkillType.photoshop,
+            onTap: () { 
+              updateSelectedSkill(_SkillType.photoshop);
+             },
             ),
-            Container(
-              width: 120,
-              height: 100,
-              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/app_icon_02.png',width: 40,height: 40,),
-                  Text('Photoshop')
-                ],
-              ), 
+            Skill(imagePath:'assets/images/app_icon_02.png' ,
+            title: 'LightRoom',
+            shadowColor: Colors.blueAccent,
+            isActive: _skill==_SkillType.lightRoom, 
+            type: _SkillType.lightRoom, 
+            onTap: () { 
+              updateSelectedSkill(_SkillType.lightRoom);
+             },
             ),
-            Container(
-              width: 120,
-              height: 100,
-              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/app_icon_03.png',width: 40,height: 40,),
-                  Text('Photoshop')
-                ],
-              ), 
+            Skill(imagePath:'assets/images/app_icon_03.png' ,
+            title: 'AfterEffect',
+            shadowColor: Colors.deepPurple,
+            isActive: _skill==_SkillType.afterEffect, 
+            type: _SkillType.afterEffect, 
+            onTap: () { 
+               updateSelectedSkill(_SkillType.afterEffect);
+             },
             ),
-            Container(
-              width: 120,
-              height: 100,
-              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/app_icon_04.png',width: 40,height: 40,),
-                  Text('Photoshop')
-                ],
-              ), 
+            Skill(imagePath:'assets/images/app_icon_04.png' ,
+            title: 'Illastrator',
+            shadowColor: Colors.orange,
+            isActive: _skill==_SkillType.illastrator, 
+            type: _SkillType.illastrator, 
+            onTap: () {
+              updateSelectedSkill(_SkillType.illastrator);
+
+            },
             ),
-            Container(
-              width: 120,
-              height: 100,
-              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/app_icon_05.png',width: 40,height: 40,),
-                  Text('Photoshop')
-                ],
-              ), 
+            Skill(imagePath:'assets/images/app_icon_05.png' ,
+            title: 'AdobeXD',
+            shadowColor: Colors.pink,
+            isActive: _skill==_SkillType.xd, 
+            type: _SkillType.xd, 
+            onTap: () {
+              updateSelectedSkill(_SkillType.xd);
+
+            },
             ),
           ],),
         )
         ],
+      ),
+    );
+  }
+}
+
+class Skill extends StatelessWidget {
+  final _SkillType type;
+  final String title;
+  final String imagePath;
+  final bool isActive;
+  final Color shadowColor;
+  final Function() onTap;
+  const Skill({
+    super.key, required this.title, required this.imagePath, required this.isActive, required this.shadowColor, required this.type, required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+  final BorderRadius defaltBorderRadius = BorderRadius.circular(8);
+
+    return InkWell(
+      borderRadius: defaltBorderRadius,
+      onTap: onTap,
+      child: Container(
+        width: 120,
+        height: 100,
+        decoration: isActive? 
+        BoxDecoration(
+          color: Theme.of(context).dividerColor,
+          borderRadius:BorderRadius.circular(8)): null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration:isActive? BoxDecoration(
+                boxShadow: [
+                  BoxShadow(color: shadowColor.withValues(alpha: 0.5),blurRadius: 10,)
+                  ] 
+              ): null,
+              child: Image.asset(imagePath,width: 40,height: 40,)),
+            SizedBox(height: 8,),
+            Text(title)
+          ],
+        ), 
       ),
     );
   }
