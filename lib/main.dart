@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color surfaceColor = Color(0x0dffffff);
     // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -18,7 +19,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
-        textTheme: GoogleFonts.latoTextTheme(),
+        scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
+        textTheme: GoogleFonts.latoTextTheme(TextTheme(bodyMedium: TextStyle(fontSize: 15),
+        bodySmall: TextStyle(fontSize: 12,color: Color.fromARGB(100, 255, 255, 255)),
+        headlineLarge: TextStyle(fontWeight: FontWeight.bold))),
+        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+        dividerColor: surfaceColor,
       ),
       home: MyHomePage(),
     );
@@ -27,7 +33,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Page'),
@@ -41,6 +47,7 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -57,11 +64,12 @@ class MyHomePage extends StatelessWidget {
                   children: [
                     Text('Hamidreza Pakpour'),
                     Text('.Net & Flutter Developer'),
+                    SizedBox(height: 6,),
                     Row(
                       children: [
-                        Icon(CupertinoIcons.location),
+                        Icon(CupertinoIcons.location,color: Theme.of(context).textTheme.bodySmall!.color, size:16,),
                         SizedBox(width: 4),
-                        Text('Tehran, Iran'),
+                        Text('Tehran, Iran',style: Theme.of(context).textTheme.bodySmall,),
                       ],
                     ),
                   ],
@@ -75,8 +83,88 @@ class MyHomePage extends StatelessWidget {
           ),
       Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text('A .NET and Flutter developer proficient in C# and Dart, dedicated to creating user-friendly and scalable applications. With experience in designing and implementing web and mobile software solutions, they provide innovative and optimized approaches to meet business needs. Additionally, they are passionate about continuous learning and staying updated with the latest technologies.'),
-      ) 
+        child: Text('A .NET and Flutter developer proficient in C# and Dart, dedicated to creating user-friendly and scalable applications. With experience in designing and implementing web and mobile software solutions, they provide innovative and optimized approaches to meet business needs. Additionally, they are passionate about continuous learning and staying updated with the latest technologies.',
+        style: Theme.of(context).textTheme.bodySmall),
+      ),
+      Divider(indent: 10,endIndent: 10,), 
+      Padding(
+        padding: const EdgeInsets.fromLTRB(32, 0, 32, 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Skills',style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold ),),
+            SizedBox(width: 4,),
+            Icon(CupertinoIcons.chevron_down,size: 12,)
+          ],
+        ),
+      ),
+        Center(
+          child: Wrap(direction: Axis.horizontal,
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            Container(
+              width: 120,
+              height: 100,
+              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/app_icon_01.png',width: 40,height: 40,),
+                  Text('Photoshop')
+                ],
+              ), 
+            ),
+            Container(
+              width: 120,
+              height: 100,
+              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/app_icon_02.png',width: 40,height: 40,),
+                  Text('Photoshop')
+                ],
+              ), 
+            ),
+            Container(
+              width: 120,
+              height: 100,
+              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/app_icon_03.png',width: 40,height: 40,),
+                  Text('Photoshop')
+                ],
+              ), 
+            ),
+            Container(
+              width: 120,
+              height: 100,
+              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/app_icon_04.png',width: 40,height: 40,),
+                  Text('Photoshop')
+                ],
+              ), 
+            ),
+            Container(
+              width: 120,
+              height: 100,
+              decoration: BoxDecoration(color: Theme.of(context).dividerColor,borderRadius:BorderRadius.circular(8) ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/app_icon_05.png',width: 40,height: 40,),
+                  Text('Photoshop')
+                ],
+              ), 
+            ),
+          ],),
+        )
         ],
       ),
     );
