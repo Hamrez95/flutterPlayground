@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,43 +8,44 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.dark;
   @override
   Widget build(BuildContext context) {
     Color surfaceColor = Color(0x0dffffff);
     Color primaryColor = Colors.pink.shade400;
-    // TODO: implement build
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Profile Demo',
-      theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8),borderSide: BorderSide.none),
-          filled: true,
-          fillColor: surfaceColor
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(primaryColor))
-          ),
-        primarySwatch: Colors.blueGrey,
-        primaryColor: primaryColor,
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
-        textTheme: GoogleFonts.latoTextTheme(TextTheme(bodyMedium: TextStyle(fontSize: 15),
-        bodySmall: TextStyle(fontSize: 12,color: Color.fromARGB(100, 255, 255, 255)),
-        headlineLarge: TextStyle(fontWeight: FontWeight.bold))),
-        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
-        dividerColor: surfaceColor,
-      ),
-      home: MyHomePage(),
+      theme: _themeMode == ThemeMode.dark ?
+      MyAppThemeConfig.dark().getTheme() 
+      : MyAppThemeConfig.light().getTheme(),
+      home: MyHomePage(toggleThemeMode: (){
+        setState(() {
+          if (_themeMode == ThemeMode.dark)
+          _themeMode = ThemeMode.light;
+          else
+          _themeMode = ThemeMode.dark;
+          
+        });
+      },),
     );
   }
 }
 
 
 class MyHomePage extends StatefulWidget {
+  final Function() toggleThemeMode;
+
+  const MyHomePage({super.key, required this.toggleThemeMode});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -64,6 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Profile Page'),
         actions: [
+          InkWell(
+            onTap: widget.toggleThemeMode,
+            child: Icon(CupertinoIcons.sunrise)),
+          SizedBox(width: 8,),
           Icon(CupertinoIcons.chat_bubble),
           SizedBox(width: 4),
           Padding(
@@ -277,4 +284,52 @@ class Skill extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyAppThemeConfig{
+  final Color primaryColor = Colors.pink.shade400;
+  final Color primaryTextColor;
+  final Color secondryTextColor;
+  final Color surfaceColor;
+  final Color backgroundColor;
+  final Color appBarColor;
+  final Brightness brightness;
+
+MyAppThemeConfig.dark():primaryTextColor = Colors.white,
+secondryTextColor = Colors.white70,
+surfaceColor = Color(0x0dffffff),
+backgroundColor = Color.fromARGB(255, 30, 30, 30),
+appBarColor = Colors.black,
+brightness = Brightness.dark;
+
+MyAppThemeConfig.light():primaryTextColor = Colors.grey.shade900,
+secondryTextColor = Colors.grey.shade900,
+surfaceColor = Color(0x0d000000),
+backgroundColor = Colors.white,
+appBarColor = Color.fromARGB(255, 184, 184, 184),
+brightness = Brightness.light;
+
+ThemeData getTheme(){
+  return ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8),borderSide: BorderSide.none),
+          filled: true,
+          fillColor: surfaceColor
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(primaryColor))
+          ),
+        primarySwatch: Colors.pink,
+        primaryColor: primaryColor,
+        brightness: brightness,
+        scaffoldBackgroundColor: backgroundColor,
+        textTheme: GoogleFonts.latoTextTheme(
+          TextTheme(
+            bodyMedium: TextStyle(fontSize: 15, color: primaryTextColor),
+            bodySmall: TextStyle(fontSize: 12,color: secondryTextColor),
+        headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor))),
+        appBarTheme: AppBarTheme(backgroundColor: appBarColor),
+        dividerColor: surfaceColor,
+      );
+}
 }
