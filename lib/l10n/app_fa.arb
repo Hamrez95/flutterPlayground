@@ -1,0 +1,29 @@
+{
+    "@@locale": "fa",
+  
+    "profilePageTitle": "صفحه پروفایل",
+    "tooltipSunrise": "تغییر تم",
+    "tooltipChat": "چت",
+    "tooltipMoreOptions": "گزینه‌های بیشتر",
+  
+    "developerName": "حمیدرضا پاکپور",
+    "netFlutterDeveloper": ".Net & Flutter Developer",
+    "locationIcon": "آیکون موقعیت مکانی",
+    "locationTehranIran": "تهران، ایران",
+    "likeIconTooltip": "لایک",
+  
+    "profileDescription": "یک توسعه‌دهنده .NET و Flutter با مهارت در C# و Dart، متعهد به ایجاد برنامه‌های کاربرپسند و مقیاس‌پذیر. با تجربه در طراحی و پیاده‌سازی راه‌حل‌های نرم‌افزاری وب و موبایل، رویکردهای نوآورانه و بهینه‌سازی شده برای رفع نیازهای کسب‌وکار ارائه می‌دهند. علاوه بر این، اشتیاق زیادی به یادگیری مداوم و به‌روز ماندن با آخرین فناوری‌ها دارند.",
+  
+    "skillsTitle": "مهارت‌ها",
+    "skillIconTooltip": "باز کردن/بستن مهارت‌ها",
+    "skillPhotoshop": "فتوشاپ",
+    "skillLightRoom": "لایتروم",
+    "skillAfterEffect": "افتر افکت",
+    "skillIllustrator": "ایلوستریتور",
+    "skillAdobeXD": "ادوبی XD",
+  
+    "personalInformationTitle": "اطلاعات شخصی",
+    "emailLabel": "ایمیل",
+    "passwordLabel": "رمز عبور",
+    "saveButton": "ذخیره"
+  }

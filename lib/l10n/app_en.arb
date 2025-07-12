@@ -1,0 +1,30 @@
+{
+  "@@locale": "en",
+
+  "profilePageTitle": "Profile Page",
+  "tooltipSunrise": "Toggle Theme",
+  "tooltipChat": "Chat",
+  "tooltipMoreOptions": "More Options",
+
+  "developerName": "Hamidreza Pakpour",
+  "netFlutterDeveloper": ".Net & Flutter Developer", 
+  "locationIcon": "Location Icon",
+  "locationTehranIran": "Tehran, Iran",
+  "likeIconTooltip": "Like",
+
+  "profileDescription": "A .NET and Flutter developer proficient in C# and Dart, dedicated to creating user-friendly and scalable applications. With experience in designing and implementing web and mobile software solutions, they provide innovative and optimized approaches to meet business needs. Additionally, they are passionate about continuous learning and staying updated with the latest technologies.",
+
+  "skillsTitle": "Skills",
+  "skillIconTooltip": "Expand/Collapse Skills",
+  "skillPhotoshop": "Photoshop", 
+  "skillLightRoom": "LightRoom", 
+  "skillAfterEffect": "AfterEffect", 
+  "skillIllustrator": "Illustrator", 
+  "skillAdobeXD": "AdobeXD",
+
+ 
+  "personalInformationTitle": "Personal Information",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "saveButton": "Save"
+}
