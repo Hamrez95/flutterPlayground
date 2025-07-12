@@ -30,3 +30,9 @@ flutter:
     - assets/images/
   
   generate: true 
+
+fonts:             
+    - family: IranYekan
+      fonts:
+        - asset: assets/fonts/Yekan.ttf
+          #style: italic

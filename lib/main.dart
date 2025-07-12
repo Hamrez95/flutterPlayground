@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Color surfaceColor = Color(0x0dffffff);
     Color primaryColor = Colors.pink.shade400;
-
+    Locale _locale = Locale('en');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Profile Demo',
@@ -36,10 +36,10 @@ class _MyAppState extends State<MyApp> {
         Locale('en'), // English
         Locale('fa'), // Persian
       ],
-      locale: Locale('en'),
+      locale: _locale,
       theme: _themeMode == ThemeMode.dark ?
-      MyAppThemeConfig.dark().getTheme()
-      : MyAppThemeConfig.light().getTheme(),
+      MyAppThemeConfig.dark().getTheme(_locale.languageCode)
+      : MyAppThemeConfig.light().getTheme(_locale.languageCode),
       home: MyHomePage(toggleThemeMode: (){
         setState(() {
           if (_themeMode == ThemeMode.dark)
@@ -308,6 +308,7 @@ class MyAppThemeConfig{
   final Color backgroundColor;
   final Color appBarColor;
   final Brightness brightness;
+  static const String faPrimaryFontFamily = 'IranYekan';
 
 MyAppThemeConfig.dark():primaryTextColor = Colors.white,
 secondryTextColor = Colors.white70,
@@ -323,7 +324,7 @@ backgroundColor = Colors.white,
 appBarColor = Color.fromARGB(255, 184, 184, 184),
 brightness = Brightness.light;
 
-ThemeData getTheme(){
+ThemeData getTheme(String languageCode){
   return ThemeData(
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8),borderSide: BorderSide.none),
@@ -337,14 +338,21 @@ ThemeData getTheme(){
         primaryColor: primaryColor,
         brightness: brightness,
         scaffoldBackgroundColor: backgroundColor,
-        textTheme: GoogleFonts.latoTextTheme(
-          TextTheme(
-            bodyMedium: TextStyle(fontSize: 15, color: primaryTextColor),
-            bodySmall: TextStyle(fontSize: 12,color: secondryTextColor),
-        headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor))),
+        textTheme: languageCode == 'fa'?  faPrimaryTestTheme : enPrimaryTestTheme,
         appBarTheme: AppBarTheme(backgroundColor: appBarColor),
         dividerColor: surfaceColor,
       );
 }
+
+TextTheme get enPrimaryTestTheme => GoogleFonts.latoTextTheme(
+          TextTheme(
+            bodyMedium: TextStyle(fontSize: 15, color: primaryTextColor),
+            bodySmall: TextStyle(fontSize: 12,color: secondryTextColor),
+            headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor)));
+
+TextTheme get faPrimaryTestTheme => TextTheme(
+            bodyMedium: TextStyle(fontSize: 15, color: primaryTextColor,fontFamily: faPrimaryFontFamily),
+            bodySmall: TextStyle(fontSize: 12,color: secondryTextColor,fontFamily: faPrimaryFontFamily),
+            headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor,fontFamily: faPrimaryFontFamily));
 }
 
