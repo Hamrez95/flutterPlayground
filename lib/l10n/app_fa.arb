@@ -25,5 +25,9 @@
     "personalInformationTitle": "اطلاعات شخصی",
     "emailLabel": "ایمیل",
     "passwordLabel": "رمز عبور",
-    "saveButton": "ذخیره"
+    "saveButton": "ذخیره",
+
+    "enLanguage" : "زبان انگلیسی ",
+    "faLanguage" : "زبان فارسی ",
+    "selectedLanguage" : "انتخاب زبان"
   }

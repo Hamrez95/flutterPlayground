@@ -223,6 +223,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get saveButton;
+
+  /// No description provided for @enLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get enLanguage;
+
+  /// No description provided for @faLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Persian'**
+  String get faLanguage;
+
+  /// No description provided for @selectedLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Language'**
+  String get selectedLanguage;
 }
 
 class _AppLocalizationsDelegate

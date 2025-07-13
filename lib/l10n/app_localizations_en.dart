@@ -71,4 +71,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveButton => 'Save';
+
+  @override
+  String get enLanguage => 'English';
+
+  @override
+  String get faLanguage => 'Persian';
+
+  @override
+  String get selectedLanguage => 'Selected Language';
 }

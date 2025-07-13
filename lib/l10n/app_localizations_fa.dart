@@ -71,4 +71,13 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get saveButton => 'ذخیره';
+
+  @override
+  String get enLanguage => 'زبان انگلیسی ';
+
+  @override
+  String get faLanguage => 'زبان فارسی ';
+
+  @override
+  String get selectedLanguage => 'انتخاب زبان';
 }

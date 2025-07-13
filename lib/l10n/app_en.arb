@@ -26,5 +26,10 @@
   "personalInformationTitle": "Personal Information",
   "emailLabel": "Email",
   "passwordLabel": "Password",
-  "saveButton": "Save"
+  "saveButton": "Save",
+
+   "enLanguage" : "English",
+   "faLanguage" : "Persian",
+   "selectedLanguage" : "Selected Language"
+
 }

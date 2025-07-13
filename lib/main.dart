@@ -10,7 +10,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Color surfaceColor = Color(0x0dffffff);
     Color primaryColor = Colors.pink.shade400;
-    Locale _locale = Locale('en');
+    Locale locale = Locale('fa');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Profile Demo',
@@ -36,16 +36,17 @@ class _MyAppState extends State<MyApp> {
         Locale('en'), // English
         Locale('fa'), // Persian
       ],
-      locale: _locale,
+      locale: locale,
       theme: _themeMode == ThemeMode.dark ?
-      MyAppThemeConfig.dark().getTheme(_locale.languageCode)
-      : MyAppThemeConfig.light().getTheme(_locale.languageCode),
+      MyAppThemeConfig.dark().getTheme(locale.languageCode)
+      : MyAppThemeConfig.light().getTheme(locale.languageCode),
       home: MyHomePage(toggleThemeMode: (){
         setState(() {
-          if (_themeMode == ThemeMode.dark)
-          _themeMode = ThemeMode.light;
-          else
-          _themeMode = ThemeMode.dark;
+          if (_themeMode == ThemeMode.dark) {
+            _themeMode = ThemeMode.light;
+          } else {
+            _themeMode = ThemeMode.dark;
+          }
 
         });
       },),
@@ -67,12 +68,13 @@ photoshop,xd,illastrator,afterEffect,lightRoom;
 
 class _MyHomePageState extends State<MyHomePage> {
   _SkillType _skill = _SkillType.photoshop;
-
+  _Language _language = _Language.en;
   void updateSelectedSkill(_SkillType skillType){
     setState(() {
-        this._skill =skillType;
+        _skill =skillType;
     });
   }
+  
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!; // گرفتن دیکشنری
@@ -112,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(localizations.developerName), // استفاده از کلید
-                      Text(localizations.netFlutterDeveloper), // استفاده از کلید
+                      Text(localizations.netFlutterDeveloper,style: Theme.of(context).textTheme.labelSmall), // استفاده از کلید
                       SizedBox(height: 6,),
                       Row(
                         children: [
@@ -136,6 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
           style: Theme.of(context).textTheme.bodySmall),
         ),
         Divider(indent: 10,endIndent: 10,),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
+          child: Row(children: [
+            Text(localizations.selectedLanguage),
+            // CupertinoSlidingSegmentedControl(children: children, onValueChanged: onValueChanged)
+          ],),
+        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(32, 0, 32, 12),
           child: Row(
@@ -238,13 +247,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: (){},
-                    child: Text(localizations.saveButton), // استفاده از کلید
+                    onPressed: (){}, // استفاده از کلید
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)
                       )
-                    )),
+                    ),
+                    child: Text(localizations.saveButton)),
                     ),
             ],
           ),
@@ -351,8 +360,14 @@ TextTheme get enPrimaryTestTheme => GoogleFonts.latoTextTheme(
             headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor)));
 
 TextTheme get faPrimaryTestTheme => TextTheme(
-            bodyMedium: TextStyle(fontSize: 15, color: primaryTextColor,fontFamily: faPrimaryFontFamily),
-            bodySmall: TextStyle(fontSize: 12,color: secondryTextColor,fontFamily: faPrimaryFontFamily),
-            headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor,fontFamily: faPrimaryFontFamily));
+            bodyMedium: TextStyle(fontSize: 15, color: primaryTextColor,fontFamily: faPrimaryFontFamily,height: 1.5),
+            bodySmall: TextStyle(fontSize: 12,color: secondryTextColor,fontFamily: faPrimaryFontFamily,height: 1.5),
+            labelSmall : TextStyle(fontSize: 12,color: secondryTextColor,fontFamily: faPrimaryFontFamily,height: 1.5),
+            headlineLarge: TextStyle(fontWeight: FontWeight.bold,color: primaryTextColor,fontFamily: faPrimaryFontFamily,height: 2));
+            
 }
 
+enum _Language {
+  en,
+  fa
+}
