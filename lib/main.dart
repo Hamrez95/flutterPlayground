@@ -18,11 +18,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.dark;
+  Locale _locale = Locale('en');
   @override
   Widget build(BuildContext context) {
     Color surfaceColor = Color(0x0dffffff);
     Color primaryColor = Colors.pink.shade400;
-    Locale locale = Locale('fa');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Profile Demo',
@@ -36,20 +36,26 @@ class _MyAppState extends State<MyApp> {
         Locale('en'), // English
         Locale('fa'), // Persian
       ],
-      locale: locale,
+      locale: _locale,
       theme: _themeMode == ThemeMode.dark ?
-      MyAppThemeConfig.dark().getTheme(locale.languageCode)
-      : MyAppThemeConfig.light().getTheme(locale.languageCode),
+      MyAppThemeConfig.dark().getTheme(_locale.languageCode)
+      : MyAppThemeConfig.light().getTheme(_locale.languageCode),
       home: MyHomePage(toggleThemeMode: (){
         setState(() {
           if (_themeMode == ThemeMode.dark) {
             _themeMode = ThemeMode.light;
-          } else {
+          } 
+          else {
             _themeMode = ThemeMode.dark;
           }
-
         });
-      },),
+      }, selectedLanguageChanged: (_Language newSelectedLanguageByUser) { 
+        setState(() {
+        _locale = newSelectedLanguageByUser == _Language.en
+        ?Locale('en')
+        :Locale('fa');
+        });
+       },),
     );
   }
 }
@@ -57,8 +63,9 @@ class _MyAppState extends State<MyApp> {
 
 class MyHomePage extends StatefulWidget {
   final Function() toggleThemeMode;
+  final Function(_Language _language) selectedLanguageChanged;
 
-  const MyHomePage({super.key, required this.toggleThemeMode});
+  const MyHomePage({super.key, required this.toggleThemeMode, required this.selectedLanguageChanged});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -69,12 +76,20 @@ photoshop,xd,illastrator,afterEffect,lightRoom;
 class _MyHomePageState extends State<MyHomePage> {
   _SkillType _skill = _SkillType.photoshop;
   _Language _language = _Language.en;
-  void updateSelectedSkill(_SkillType skillType){
+
+  void _updateSelectedSkill(_SkillType skillType){
     setState(() {
         _skill =skillType;
     });
   }
-  
+
+  void _updateSelectedLanguage(_Language language){
+    widget.selectedLanguageChanged(language);
+    setState(() {
+      _language = language;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!; // گرفتن دیکشنری
@@ -140,9 +155,20 @@ class _MyHomePageState extends State<MyHomePage> {
         Divider(indent: 10,endIndent: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
-          child: Row(children: [
-            Text(localizations.selectedLanguage),
-            // CupertinoSlidingSegmentedControl(children: children, onValueChanged: onValueChanged)
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Text(localizations.selectedLanguage,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold ),), // استفاده از کلید
+            CupertinoSlidingSegmentedControl<_Language>(
+              children: {
+                _Language.en: Text(localizations.enLanguage, style: TextStyle(fontSize: 12,)), // استفاده از کلید
+                _Language.fa: Text(localizations.faLanguage,style: TextStyle(fontSize: 12,)), // استفاده از کلید
+                },
+               onValueChanged: (value){
+                if (value != null) _updateSelectedLanguage(value);
+               }
+               
+               )
           ],),
         ),
         Padding(
@@ -168,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isActive: _skill==_SkillType.photoshop,
               type: _SkillType.photoshop,
               onTap: () {
-                updateSelectedSkill(_SkillType.photoshop);
+                _updateSelectedSkill(_SkillType.photoshop);
                },
               ),
               Skill(imagePath:'assets/images/app_icon_02.png' ,
@@ -177,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isActive: _skill==_SkillType.lightRoom,
               type: _SkillType.lightRoom,
               onTap: () {
-                updateSelectedSkill(_SkillType.lightRoom);
+                _updateSelectedSkill(_SkillType.lightRoom);
                },
               ),
               Skill(imagePath:'assets/images/app_icon_03.png' ,
@@ -186,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isActive: _skill==_SkillType.afterEffect,
               type: _SkillType.afterEffect,
               onTap: () {
-                 updateSelectedSkill(_SkillType.afterEffect);
+                 _updateSelectedSkill(_SkillType.afterEffect);
                },
               ),
               Skill(imagePath:'assets/images/app_icon_04.png' ,
@@ -195,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isActive: _skill==_SkillType.illastrator,
               type: _SkillType.illastrator,
               onTap: () {
-                updateSelectedSkill(_SkillType.illastrator);
+                _updateSelectedSkill(_SkillType.illastrator);
 
               },
               ),
@@ -205,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isActive: _skill==_SkillType.xd,
               type: _SkillType.xd,
               onTap: () {
-                updateSelectedSkill(_SkillType.xd);
+                _updateSelectedSkill(_SkillType.xd);
 
               },
               ),
